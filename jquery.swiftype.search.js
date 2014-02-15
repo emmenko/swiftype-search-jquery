@@ -121,7 +121,7 @@
         };
 
       $(window).hashchange(function () {
-        var params = $.hashParams();
+        var params = $.queryParams();
         if (params.stq) {
           submitSearch(params.stq, {
             page: params.stp
@@ -135,19 +135,20 @@
         }
       });
 
-      var $containingForm = $this.parents('form');
-      if ($containingForm) {
-        $containingForm.bind('submit', function (e) {
-          e.preventDefault();
-          var searchQuery = $this.val();
-          setSearchHash(searchQuery, 1);
-        });
-      }
+      /* Do not set hash params */
+      // var $containingForm = $this.parents('form');
+      // if ($containingForm) {
+      //   $containingForm.bind('submit', function (e) {
+      //     e.preventDefault();
+      //     var searchQuery = $this.val();
+      //     setSearchHash(searchQuery, 1);
+      //   });
+      // }
 
       $(document).on('click', '[data-hash][data-page]', function (e) {
         e.preventDefault();
         var $this = $(this);
-        setSearchHash($.hashParams().stq, $this.data('page'));
+        setSearchHash($.queryParams().stq, $this.data('page'));
       });
 
       var renderSearchResults = function (data) {
